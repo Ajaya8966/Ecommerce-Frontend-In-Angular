@@ -1,0 +1,28 @@
+.contact-form-container {
+    max-width: 800px;
+    margin: auto;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-form-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .contact-input {
+    margin-bottom: 15px;
+  }
+  
+  .contact-button {
+    font-size: 1.2rem;
+    padding: 12px 20px;
+  }
+  
+  .alert-message {
+    margin-bottom: 20px;
+  }
+  
