@@ -1,0 +1,45 @@
+header {
+  background-color: #2e3944;
+  padding: 5px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  text-decoration: none;
+  align-items: center;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  letter-spacing: 1px;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 94%;
+}
+
+.navbar-nav .nav-item {
+  text-decoration: none;
+  margin-left: 50px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
+  transition: color 1s ease;
+}
+
+.nav-link:hover {
+  color: #ff2df1; /* Highlight color */
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-color: #3f1f1f;
+}
