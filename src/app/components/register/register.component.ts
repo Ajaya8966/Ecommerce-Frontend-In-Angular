@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -14,7 +18,11 @@ export class RegisterComponent {
   imageFile: File | null = null;
   imageError: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.registerForm = this.fb.group(
       {
         name: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]{3,50}$/)]],
@@ -28,6 +36,7 @@ export class RegisterComponent {
     );
   }
 
+  // Getters for form fields
   get name() { return this.registerForm.get('name')!; }
   get phone() { return this.registerForm.get('phone')!; }
   get address() { return this.registerForm.get('address')!; }
@@ -35,12 +44,14 @@ export class RegisterComponent {
   get password() { return this.registerForm.get('password')!; }
   get confirmPassword() { return this.registerForm.get('confirmPassword')!; }
 
+  // Custom validator for password match
   passwordMatchValidator(form: AbstractControl): ValidationErrors | null {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
+  // Image upload logic
   onFileChange(event: any): void {
     const file: File = event.target.files[0];
     if (file && /\.(jpg|jpeg|png)$/i.test(file.name)) {
@@ -57,18 +68,28 @@ export class RegisterComponent {
     }
   }
 
+  // Submit form
   onSubmit(): void {
     if (this.registerForm.valid && this.imageFile) {
       const formData = new FormData();
+
       Object.keys(this.registerForm.controls).forEach(key => {
         if (key !== 'confirmPassword') {
           formData.append(key, this.registerForm.get(key)?.value);
         }
       });
+
       formData.append('imageFile', this.imageFile);
 
-      // Replace with actual API call
-      console.log('Form Data Submitted:', formData);
+      this.userService.register(formData).subscribe({
+        next: (res) => {
+          alert('User successfully registered!');
+          this.router.navigate(['/login']); // Redirect after success
+        },
+        error: (err) => {
+          alert('Registration failed: ' + (err.error?.message || 'Server error'));
+        }
+      });
     }
   }
 }

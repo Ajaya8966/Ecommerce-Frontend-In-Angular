@@ -7,11 +7,14 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8080/api/auth/register'; // Spring Boot backend URL
+  private apiUrl = 'http://localhost:8080/api'; // Spring Boot backend URL
 
   constructor(private http: HttpClient) { }
 
-  registerUser(user: any): Observable<any> {
-    return this.http.post(this.apiUrl, user);
+  // registerUser(user: any): Observable<any> {
+  //   return this.http.post(this.apiUrl, user);
+  // }
+  register(formData: FormData) {
+    return this.http.post(`${this.apiUrl}/register`, formData);
   }
 }
