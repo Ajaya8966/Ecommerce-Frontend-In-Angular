@@ -1,9 +1,9 @@
 <div class="container my-5">
   <!-- Success and Error Messages -->
-  <div *ngIf="successMessage" class="alert alert-success alert-message" role="alert">
+  <div if="successMessage" class="alert alert-success alert-message" role="alert">
     {{ successMessage }}
   </div>
-  <div *ngIf="errorMessage" class="alert alert-danger alert-message" role="alert">
+  <div if="errorMessage" class="alert alert-danger alert-message" role="alert">
     {{ errorMessage }}
   </div>
 

@@ -1,41 +1,42 @@
+// contact.component.ts
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ContactService } from '../../services/contact.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ContactMessage, ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'app-contact',
   imports: [ReactiveFormsModule],
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css'] 
+  styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
-  contactForm: FormGroup = new FormGroup({
-    name: new FormControl(""),
-    email: new FormControl(""),
-    subject: new FormControl(""),
-    message: new FormControl(""),
-   // name: ['', [Validators.required]],
-    // email: ['', [Validators.required, Validators.email]],
-    // subject: ['', [Validators.required]],
-    // message: ['', [Validators.required]],
-  });
+  contactForm: FormGroup;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
 
-  successMessage: string = '';
-  errorMessage: string = '';
+  constructor(private fb: FormBuilder, private contactService: ContactService) {
+    this.contactForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      subject: ['', Validators.required],
+      message: ['', Validators.required]
+    });
+  }
 
-  constructor(private fb: FormBuilder, private contactService: ContactService) {}
-
-  onSubmit() {
+  onSubmit(): void {
     if (this.contactForm.valid) {
-      this.contactService.submitContactForm(this.contactForm.value).subscribe(
-        (response) => {
-          this.successMessage = 'Your message has been sent successfully!';
+      const contactData: ContactMessage = this.contactForm.value;
+      this.contactService.sendMessage(contactData).subscribe({
+        next: (res) => {
+          this.successMessage = res;
+          this.errorMessage = null;
           this.contactForm.reset();
         },
-        (error) => {
-          this.errorMessage = 'There was an error sending your message. Please try again later.';
+        error: (err) => {
+          this.errorMessage = err.error;
+          this.successMessage = null;
         }
-      );
+      });
     }
   }
 }

@@ -1,23 +1,48 @@
-<div class="parent">
-    <div class="container">
-        <h1>Login</h1>
-        <div class="input-box">
-            <input type="email" formControlName="username" placeholder="Email">
-            <i class="bx bx-envelope"></i>
+<div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <div class="row">
+          <div class="col-lg-7 mx-auto">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-secondary mb-4">Login to Your Account</h1>
+              </div>
+  
+              <form (ngSubmit)="Login()">
+                <div class="form-group">
+                  <label for="username">Email</label>
+                  <input type="email" class="form-control" id="username" formControlName="username" placeholder="Enter your email">
+                </div>
+  
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password">
+                </div>
+  
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">
+                      Remember Me
+                    </label>
+                  </div>
+                  <a href="#" class="small">Forgot Password?</a>
+                </div>
+  
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">Login</button>
+  
+                <p *ngIf="message" class="text-danger mt-2 text-center">{{ message }}</p>
+              </form>
+  
+              <hr>
+              <div class="text-center">
+                <a href="/register" class="small">Don't have an account? Register!</a>
+              </div>
+  
+            </div>
+          </div>
         </div>
-        <div class="input-box">
-            <input type="password" formControlName="password" placeholder="Password">
-            <i class="bx bx-lock-alt"></i>
-        </div>
-        <div class="remember">
-            <label for="#">
-                <input type="checkbox">Remember me
-            </label>
-            <a href="#">Forget password</a>
-        </div>
-        <button class="btn" (click)="doLogin()">Login</button>
-        <div class="register">
-            <p>Don't have an account? <br> <a href="/register">Register</a></p>
-        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

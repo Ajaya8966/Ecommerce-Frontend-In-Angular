@@ -83,12 +83,14 @@ export class RegisterComponent {
 
       this.userService.register(formData).subscribe({
         next: (res) => {
-          alert('User successfully registered!');
+          alert('User Registered Successfully!');
           this.router.navigate(['/login']); // Redirect after success
         },
         error: (err) => {
-          alert('Registration failed: ' + (err.error?.message || 'Server error'));
+          console.error('Full error:', err); // This helps A LOT
+          alert('Registration failed: ' + (err.error?.message || err.message || 'Server error'));
         }
+        
       });
     }
   }

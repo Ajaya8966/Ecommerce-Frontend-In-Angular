@@ -1,48 +1,42 @@
-import { Component, inject } from '@angular/core';
-import { IntegrationService } from '../../services/integration.service';
-import { FormControl, FormGroup } from '@angular/forms';
-import { LoginRequest } from '../../models/login-request';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './login.component.html'
 })
-export class LoginComponent {
-  constructor(private integration: IntegrationService){ }
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  message: string = '';
 
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
-  userForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
-  });
-
-  router = inject(Router)
-  request: LoginRequest = new LoginRequest;
-
-
-  doLogin(){
-    const formValue = this.userForm.value;
-
-    if(formValue.username == '' || formValue.password == ''){
-      alert('Worng Crendential')
-      return
-    }
-
-    this.request.username = formValue.username
-    this.request.password = formValue.password
-
-    this.integration.doLogin(this.request).subscribe({
-      next:(res) => {
-        console.log("Received Response:"+res.token)
-        this.router.navigateByUrl('dashboard')
-      }, error: (err) => {
-        console.log("Error Reveived Response:" +err)
-      }
-    })
-
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
 
+  Login(): void {
+    if (this.loginForm.invalid) {
+      this.message = 'Please fill all fields correctly.';
+      return;
+    }
+
+    const { username, password } = this.loginForm.value;
+
+    this.authService.login(username, password).subscribe({
+      next: (res) => {
+        this.message = 'Login successful!';
+        console.log('Logged in:', res);
+        // redirect logic here
+      },
+      error: (err) => {
+        this.message = 'Login failed. Check email and password.';
+        console.error('Login error:', err);
+      }
+    });
+  }
 }
