@@ -5,7 +5,7 @@
     <section class="hero-section text-center py-5">
       <h1 class="fw-bold">Welcome to <span class="text-primary">AjayaMart</span></h1>
       <p class="lead">Your one-stop destination for the best online shopping experience.</p>
-      <a routerLink="/products" class="btn btn-primary btn-lg mt-3">Search Product Here --</a>
+      <a href="/products" class="btn btn-primary btn-lg mt-3">Search Product Here --</a>
     </section>
   
     <!-- Shop by Category -->
@@ -13,7 +13,7 @@
       <h2 class="text-center fw-bold">Shop by Category</h2>
       <div class="row text-center mt-3">
         <div class="col-md-3" *ngFor="let cat of categories">
-          <a routerLink="/products">
+          <a href="/products">
             <img [src]="cat.image" alt="{{cat.name}}" class="img-fluid category-img">
           </a>
           <h5 class="mt-2">{{cat.name}}</h5>
