@@ -10,7 +10,7 @@ import { ContactMessage, ContactService } from '../../services/contact.service';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
-  contactForm: FormGroup;
+  contactForm: FormGroup; // reactive form object
   successMessage: string | null = null;
   errorMessage: string | null = null;
 
@@ -25,7 +25,7 @@ export class ContactComponent {
 
   onSubmit(): void {
     if (this.contactForm.valid) {
-      const contactData: ContactMessage = this.contactForm.value;
+      const contactData: ContactMessage = this.contactForm.value;  //get form data
       this.contactService.sendMessage(contactData).subscribe({
         next: (res) => {
           this.successMessage = res;
