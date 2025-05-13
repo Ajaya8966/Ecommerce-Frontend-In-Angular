@@ -15,11 +15,11 @@ import Chart from 'chart.js/auto';
 export class AdminDashboardComponent implements OnInit {
   private http = inject(HttpClient);
 
-  categoryCount = 0;
-  productCount = 0;
-  userCount = 0;
-  adminCount = 0;
-  orderCount = 0;
+  categoryCount = 10;
+  productCount = 10;
+  userCount = 5;
+  adminCount = 2;
+  orderCount = 2;
 
   ngOnInit(): void {
     this.loadCounts();

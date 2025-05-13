@@ -10,7 +10,7 @@
             <li><a routerLink="/products">Products</a></li>
             <li><a routerLink="/orders">Orders</a></li>
             <li><a routerLink="/customers">Customers</a></li>
-            <li><a routerLink="/admin/category/show">Categories</a></li>  <!-- Updated -->
+            <li><a routerLink="/admin-category">Categories</a></li>
             <li><a routerLink="/brands">Brands</a></li>
             <li><a routerLink="/settings">Settings</a></li>
             <li><a routerLink="/register">Register</a></li>
@@ -21,18 +21,18 @@
 
     <div class="row text-center">
         <div class="col-md-4 mb-4" *ngFor="let card of [
-            { title: 'Categories', count: categoryCount, color: '#0d6efd', icon: 'bi-tags', link: '/admin/category/show' },
-            { title: 'Products', count: productCount, color: '#0d6efd', icon: 'bi-box', link: '/admin/product/list' },
-            { title: 'Users', count: userCount, color: '#6495ed', icon: 'bi-people', link: '/admin/user/list' },
-            { title: 'Admins', count: adminCount, color: '#4682b4', icon: 'bi-shield-lock', link: '/admin/add' },
-            { title: 'Orders', count: orderCount, color: '#1e90ff', icon: 'bi-cart', link: '/admin/order/list' }
+            { title: 'Categories', count: categoryCount, color: '#0d6efd', icon: 'bi-tags', link: '/admin-category' },
+            { title: 'Products', count: productCount, color: '#0d6efd', icon: 'bi-box', link: '/product-list' },
+            { title: 'Users', count: userCount, color: '#6495ed', icon: 'bi-people', link: '/admin-user' },
+            { title: 'Admins', count: adminCount, color: '#4682b4', icon: 'bi-shield-lock', link: '/admin-add' },
+            { title: 'Orders', count: orderCount, color: '#1e90ff', icon: 'bi-cart', link: '/admin-order' }
         ]">
             <div class="card p-3 text-white" [ngStyle]="{ 'background-color': card.color }">
                 <div class="card-body">
                     <i class="icon bi" [ngClass]="card.icon"></i>
                     <h5 class="card-title">{{ card.title }}</h5>
                     <h2>{{ card.count }}</h2>
-                    <a [routerLink]="card.link" class="btn btn-light">View {{ card.title }}</a>
+                    <a [href]="card.link" class="btn btn-light">View {{ card.title }}</a>
                 </div>
             </div>
         </div>

@@ -19,9 +19,10 @@ export class UserDashboardComponent implements OnInit {
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit(): void {
-    this.productService.getFeaturedProducts().subscribe(data => {
-      this.featuredProducts = data;
+  ngOnInit() {
+    this.productService.getFeaturedProducts().subscribe({
+      next: (res) => this.featuredProducts = res,
+      error: (err) => console.error('Error fetching featured products', err)
     });
   }
 }

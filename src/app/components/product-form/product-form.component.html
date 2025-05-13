@@ -1,0 +1,85 @@
+<div class="container my-4">
+  <div class="card shadow-lg">
+    <div class="card-body">
+      <div class="text-center py-2">
+        <h1 class="h4 mb-0">{{ isEditMode ? 'Update Product' : 'Add Product' }}</h1>
+      </div>
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Product Title:</label>
+          <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter Product Name" />
+          <div *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid" class="text-danger">
+            Product name is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select id="category" formControlName="category" class="form-control">
+            <option value="">-- Select Category --</option>
+            <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+          </select>
+          <div *ngIf="productForm.get('category')?.touched && productForm.get('category')?.invalid" class="text-danger">
+            Category is required.
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-6 mb-3 mb-sm-0">
+            <label for="cp">Cost Price:</label>
+            <input type="number" id="cp" formControlName="cp" class="form-control" placeholder="Enter Cost Price" />
+            <div *ngIf="productForm.get('cp')?.touched && productForm.get('cp')?.invalid" class="text-danger">
+              Cost price is required and must be non-negative.
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <label for="sp">Selling Price:</label>
+            <input type="number" id="sp" formControlName="sp" class="form-control" placeholder="Enter Selling Price" />
+            <div *ngIf="productForm.get('sp')?.touched && productForm.get('sp')?.invalid" class="text-danger">
+              Selling price is required and must be non-negative.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="qty">Product Quantity:</label>
+          <input type="number" id="qty" formControlName="qty" class="form-control" placeholder="Enter Product Quantity" />
+          <div *ngIf="productForm.get('qty')?.touched && productForm.get('qty')?.invalid" class="text-danger">
+            Quantity is required and must be non-negative.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Product Description:</label>
+          <textarea id="description" formControlName="description" class="form-control" rows="5" placeholder="Enter the description"></textarea>
+          <div *ngIf="productForm.get('description')?.touched && productForm.get('description')?.invalid" class="text-danger">
+            Description is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="imageFile">Product Image:</label>
+          <input type="file" id="imageFile" (change)="onFileChange($event)" class="form-control" />
+          <div *ngIf="productForm.get('imageFile')?.touched && productForm.get('imageFile')?.invalid" class="text-danger">
+            Product image is required.
+          </div>
+        </div>
+
+
+    <!--<div class="form-group"> image preview and form data to the backend
+        <label for="imageFile">Product Image:</label>
+        <input type="file" class="form-control" id="imageFile" (change)="onFileSelected($event)">
+         <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" style="max-width: 150px; margin-top: 10px;">
+        </div> -->
+
+
+        <div class="form-group d-flex justify-content-between">
+          <button type="submit" class="btn btn-success ml-3" [disabled]="productForm.invalid">
+            {{ isEditMode ? 'Update Product' : 'Add Product' }}
+          </button>
+          <button type="button" class="btn btn-warning ml-2" (click)="onReset()">Reset Form</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
