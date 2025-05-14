@@ -1,0 +1,61 @@
+<div class="container my-2">
+  <div class="card shadow-lg">
+    <div *ngIf="successMessage" class="alert alert-success fw-bold">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger fw-bold">
+      {{ errorMessage }}
+    </div>
+
+    <div class="container-fluid mt-5 mb-5 text-center">
+      <img
+        [src]="cp + '/' + user.photo"
+        class="rounded mx-auto d-block"
+        style="height:200px; max-width:200px; overflow:hidden"
+        [alt]="user.name + ' photo'"
+      />
+      <h1>{{ user.name }}</h1>
+      <p class="h4">{{ user.email }}</p>
+
+      <div class="text-center mt-4 d-flex justify-content-between px-4">
+        <button class="btn btn-primary" (click)="openModal()">
+          <i class="fa fa-lock"></i> Change Password
+        </button>
+
+        <button class="btn btn-warning" (click)="editProfile()">
+          <i class="fa fa-edit"></i> Edit Profile
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal" tabindex="-1" [ngClass]="{ show: showModal }" style="display: block;" *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change Account Password</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="changePassForm" (ngSubmit)="changePassword()">
+          <div class="mb-3">
+            <label for="cpass">Current Password:</label>
+            <input type="password" class="form-control" formControlName="cpass" />
+          </div>
+          <div class="mb-3">
+            <label for="npass">New Password:</label>
+            <input type="password" class="form-control" formControlName="npass" />
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary m-1" (click)="closeModal()">Close</button>
+            <button type="submit" class="btn btn-danger m-1" [disabled]="changePassForm.invalid">
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

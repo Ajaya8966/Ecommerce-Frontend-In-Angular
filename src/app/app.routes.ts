@@ -12,6 +12,8 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { AdminUserListComponent } from './components/admin-user-list/admin-user-list.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { AdminUserFormComponent } from './components/admin-user-form/admin-user-form.component';
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'user-dashboard', pathMatch: 'full'},
@@ -27,5 +29,7 @@ export const routes: Routes = [
     {path: "product-details", component: ProductDetailComponent},
     {path: "product-form", component: ProductFormComponent},
     {path: "admin-user-list", component: AdminUserListComponent},
-    {path: "user-form", component: UserFormComponent}
+    {path: "user-form", component: UserFormComponent},
+    {path: "admin-user-form", component: AdminUserFormComponent},
+    {path: "admin-profile", component: AdminProfileComponent}
 ];

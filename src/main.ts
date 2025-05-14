@@ -4,3 +4,12 @@ import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
+
+
+// import { provideHttpClient } from '@angular/common/http';
+// import { provideRouter } from '@angular/router';
+// import { AdminProfileComponent } from './app/components/admin-profile/admin-profile.component';
+
+// bootstrapApplication(AdminProfileComponent, {
+//   providers: [provideHttpClient(), provideRouter([])],
+// });
