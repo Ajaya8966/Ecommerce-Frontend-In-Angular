@@ -1,0 +1,69 @@
+<div class="container my-4">
+  <div class="card shadow-lg">
+    <div class="card-body">
+      <h2 class="text-center">{{ editMode ? 'Update User' : 'Add User' }}</h2>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input formControlName="name" class="form-control" placeholder="Enter User's Name" />
+          <div *ngIf="userForm.get('name')?.touched && userForm.get('name')?.invalid" class="text-danger">
+            Name must be 3-50 alphabetic characters.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input formControlName="email" class="form-control" placeholder="Enter Email" />
+          <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid" class="text-danger">
+            Enter a valid email address.
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="!editMode">
+          <label for="password">Password:</label>
+          <input type="password" formControlName="password" class="form-control" placeholder="Enter Password" />
+          <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid" class="text-danger">
+            Password must be at least 8 characters, including uppercase, lowercase, and special character.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input formControlName="phone" class="form-control" placeholder="Enter Phone Number" />
+          <div *ngIf="userForm.get('phone')?.touched && userForm.get('phone')?.invalid" class="text-danger">
+            Enter a valid phone number starting with 9 and 10 digits long.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input formControlName="address" class="form-control" placeholder="Enter Address" />
+          <div *ngIf="userForm.get('address')?.touched && userForm.get('address')?.invalid" class="text-danger">
+            Address must be at least 5 characters.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userName">Username:</label>
+          <input formControlName="userName" class="form-control" placeholder="Enter Username" />
+          <div *ngIf="userForm.get('userName')?.touched && userForm.get('userName')?.invalid" class="text-danger">
+            Username must be 3-20 characters, letters, dots, or underscores.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="imageFile">Photo:</label>
+          <input type="file" (change)="onFileChange($event)" class="form-control" />
+            <div *ngIf="userForm.get('imageFile')?.errors?.['invalidFormat']" class="text-danger">
+            Image file must be in JPG, JPEG, or PNG format.
+          </div>
+        </div>
+
+        <div class="form-group d-flex justify-content-between">
+          <button type="submit" class="btn btn-success">{{ editMode ? 'Update User' : 'Add User' }}</button>
+          <button type="reset" class="btn btn-warning" (click)="userForm.reset()">Reset Form</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

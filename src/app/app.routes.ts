@@ -10,6 +10,8 @@ import { AdminCategoryComponent } from './components/admin-category/admin-catego
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { AdminUserListComponent } from './components/admin-user-list/admin-user-list.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'user-dashboard', pathMatch: 'full'},
@@ -19,10 +21,11 @@ export const routes: Routes = [
     {path: 'user-dashboard', component: UserDashboardComponent },
     {path: 'contact', component: ContactComponent},
     {path: 'about', component: AboutComponent}, 
-    {path: 'admin-dashboard', component: AdminDashboardComponent
-    },
+    {path: 'admin-dashboard', component: AdminDashboardComponent},
     {path: "admin-category", component: AdminCategoryComponent},
     {path: "product-list", component: ProductListComponent},
     {path: "product-details", component: ProductDetailComponent},
-    {path: "product-form", component: ProductFormComponent}
+    {path: "product-form", component: ProductFormComponent},
+    {path: "admin-user-list", component: AdminUserListComponent},
+    {path: "user-form", component: UserFormComponent}
 ];

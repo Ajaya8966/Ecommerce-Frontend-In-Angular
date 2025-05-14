@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from "./shared/footer/footer.component";
 import { HeaderComponent } from "./shared/header/header.component";
-
+import { UserFormComponent } from './components/user-form/user-form.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent, HeaderComponent],
+  imports: [RouterOutlet, FooterComponent, HeaderComponent, UserFormComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']  // <-- fixed here
 })
