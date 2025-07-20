@@ -1,0 +1,265 @@
+<br />
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="productForm" (ngSubmit)="submitForm()">
+      <h2 class="mb-2">Product Details</h2>
+
+      <div class="mt-3">
+        <label class="form-label">Biz House</label>
+        <select
+          class="form-control"
+          formControlName="bizHouseID"
+          (change)="onBizHouse($event)"
+        >
+          <option
+            *ngFor="let biz of getBizHousesMasterList"
+            [value]="biz.BizHouseGID"
+          >
+            {{ biz.BizHouseName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mt-3">
+        <label class="form-label">Product Category:</label>
+        <select
+          class="form-control"
+          formControlName="productCategoryID"
+          (change)="onCategory($event)"
+        >
+          <option
+            *ngFor="let cat of getProductCategoriesMasterList"
+            [value]="cat.ProductCategoryGID"
+          >
+            {{ cat.CategoryName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mt-3">
+        <label class="form-label">Product Sub Category:</label>
+        <select class="form-control" formControlName="productSubCategoryID">
+          <option
+            *ngFor="let Subcat of getProductSubCategoriesListMasterList"
+            [value]="Subcat.ProductSubCategoryGID"
+          >
+            {{ Subcat.ProductSubCategoryName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mt-3">
+        <label class="form-label">Product Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="productDetailsName"
+          placeholder="Enter Product Name"
+        />
+      </div>
+
+      <div class="mt-3">
+        <label class="form-label">Product Highlight:</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="productHighlight"
+          placeholder="Enter key features or highlights of the product"
+        />
+      </div>
+      <h2 class="mt-3">Location Information</h2>
+      <div formArrayName="locationInfo">
+        <div
+          class="mb-3 p-3 border rounded bg-light"
+          *ngFor="let location of locationInfo.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <label class="form-label">Location:</label>
+          <select class="form-control" formControlName="locationID">
+            <option
+              *ngFor="let loc of getBizHousesLocationList"
+              [value]="loc.LocationIDCode"
+            >
+              {{ loc.AdministrativeArea }}
+            </option>
+          </select>
+        </div>
+        <!-- <button type="button" class="btn btn-primary" (click)="addLocation()">
+          Add Location
+        </button> -->
+      </div>
+      <h2 class="mt-3">Price Information</h2>
+      <div formArrayName="priceInfo">
+        <div
+          class="mb-3 p-3 border rounded bg-light"
+          *ngFor="let price of priceInfo.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label">Currency Code:</label>
+              <select class="form-control" formControlName="currencyCode">
+                <option
+                  *ngFor="let loc of getCurrencyTypeList"
+                  [value]="loc.CurrencyCode"
+                >
+                  {{ loc.CurrencyType }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Product Price:</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Product Price"
+                formControlName="productPrice"
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="form-label">Discount Price:</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="productDiscountPrice"
+                placeholder="Discount Price"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Product Member Price:</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="productMemberPrice"
+                placeholder="Product Member Price"
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="form-label">Product Discount Date:</label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="productDiscountDate"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Is Voucher Applicable?</label>
+              <select
+                class="form-control"
+                formControlName="isVoucherApplicable"
+              >
+                <option value="" selected disabled hidden>Select</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="form-label">Voucher Code:</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="voucherCode"
+                placeholder="Voucher Code"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Voucher Price:</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="voucherPrice"
+                placeholder="Voucher Price"
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="form-label">Voucher Applicable Date:</label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="voucherApplicableDate"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Product Available Quantity:</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="productAvailableQuantity"
+                placeholder="Product Available Quantity"
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="form-label">Product Booked Quantity:</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="productBookedQuantity"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Product Sold Quantity:</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="productSoldQuantity"
+                placeholder="Product Sold Quantity"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- <button type="button" class="btn btn-primary" (click)="addPrice()">
+          Add Price
+        </button> -->
+      </div>
+      <h2 class="mt-3">Dimensions Information</h2>
+      <div formArrayName="dimensionsInfo">
+        <div
+          class="mb-3 p-3 border rounded bg-light"
+          *ngFor="let dimension of dimensionsInfo.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="mt-3">
+            <label class="form-label">Dimension Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="productDetailsDimensionsName"
+            />
+          </div>
+
+          <div class="mt-3">
+            <label class="form-label"
+              >Product Details Dimensions Description:</label
+            >
+            <textarea
+              type="text"
+              class="form-control"
+              formControlName="productDetailsDimensionsDescription"
+              placeholder="product Details Dimensions Description"
+            >
+            </textarea>
+          </div>
+        </div>
+
+        <!-- <button type="button" class="btn btn-primary" (click)="addDimension()">
+          Add Dimension
+        </button> -->
+      </div>
+      <div class="container text-center">
+        <button type="submit" class="btn btn-success mt-3">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<br />

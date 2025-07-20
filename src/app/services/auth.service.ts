@@ -1,34 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080'; // Your backend URL
+  private baseUrl = 'http://localhost:8080/api/signup';
 
   constructor(private http: HttpClient) {}
 
-  // Registration using JSON
-  // register(user: any): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/addUser`, user);
-  // }
-
   login(email: string, password: string): Observable<any> {
-    const body = new URLSearchParams();
-    body.set('username', email); // Spring Security expects "username"
-    body.set('password', password);
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Requested-With': 'XMLHttpRequest'
-    });
-
-    return this.http.post(`${this.baseUrl}/login`, body.toString(), {
-      headers,
-      withCredentials: true, // to send the JSESSIONID cookie
-      responseType: 'text'   // or 'json' if you're returning a custom object
+    return this.http.post(`${this.baseUrl}/login`, formData, {
+      withCredentials: true,
+      observe: 'response'
     });
   }
 }
